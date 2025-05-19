@@ -138,31 +138,51 @@ void procesar_Archivo(Cola* colas, const char* nombreArchivo) {
 
     char linea[256];
     while(fgets(linea, sizeof(linea), archivo) != NULL) {
+        // Eliminar salto de línea
         linea[strcspn(linea, "\n")] = '\0';
 
-        if (strncmp(linea, "AGREGAR", 7) == 0) {
-            char nombre[MAX_NOMBRE];
-            char* token = strtok(linea, ";");
-            if(token == NULL) continue;
-
-            token = strtok(NULL, ";"); // Nombre
-            if(token == NULL) continue;
-            strncpy(nombre, token, MAX_NOMBRE-1);
-            nombre[MAX_NOMBRE-1] = '\0';
-
-            // Ignorar edad y RUT
-            strtok(NULL, ";");
-            strtok(NULL, ";");
-
-            token = strtok(NULL, ";"); // Prioridad
-            if(token == NULL) continue;
-
-            int prioridad = atoi(token + 1); // Saltar el 'C'
-            ingresar_Paciente(colas, nombre, prioridad);
-        } 
-        else if (strcmp(linea, "VER") == 0) {
+        // Verificar comando VER
+        if (strcmp(linea, "VER") == 0) {
             mostrar_Estado(colas);
+            continue;
         }
+
+        // Procesar línea AGREGAR
+        char* token = strtok(linea, " ");
+        if (token == NULL || strcmp(token, "AGREGAR") != 0) {
+            continue; // No es una línea AGREGAR válida
+        }
+
+        // El resto de la línea contiene los datos separados por ;
+        char* datos = strtok(NULL, "\n");
+        if (datos == NULL) continue;
+
+        // Separar los campos por ;
+        char nombre[MAX_NOMBRE];
+        char prioridadStr[3];
+        char* campo = strtok(datos, ";");
+        if (campo == NULL) continue;
+        strncpy(nombre, campo, MAX_NOMBRE-1);
+        nombre[MAX_NOMBRE-1] = '\0';
+
+        // Ignorar edad (segundo campo)
+        campo = strtok(NULL, ";");
+        if (campo == NULL) continue;
+
+        // Ignorar RUT (tercer campo)
+        campo = strtok(NULL, ";");
+        if (campo == NULL) continue;
+
+        // Obtener prioridad (cuarto campo)
+        campo = strtok(NULL, ";");
+        if (campo == NULL) continue;
+        strncpy(prioridadStr, campo, 2);
+        prioridadStr[2] = '\0';
+
+        // Convertir prioridad (C1 -> 1)
+        int prioridad = atoi(prioridadStr + 1);
+
+        ingresar_Paciente(colas, nombre, prioridad);
     }
     fclose(archivo);
 }
