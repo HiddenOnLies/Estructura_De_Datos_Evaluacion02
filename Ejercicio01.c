@@ -43,24 +43,25 @@ void inicializar_Colas(Cola* colas){
 // Ingresamos el paciente considerando su nombre y la prioridad
 void ingresar_Paciente(Cola* colas, char* nombre, int prioridad){
     int indice;
+    // Salida por error en la prioridad
     if(prioridad < 1 || prioridad > 5){
         printf("Error: La prioridad debe ser entre 1(C1) y 5(C5)\n");
         return;
     }
-    
+    // Salida en caso de que nuevo sea null
     Paciente* nuevo = (Paciente*)malloc(sizeof(Paciente));
     if (nuevo == NULL){
         printf("Error: Memoria insuficiente\n");
         return;
     }
-    
+    //Copiar datos ingresados
     strcpy(nuevo->nombre, nombre);
     nuevo->prioridad = prioridad;
     nuevo->siguiente = NULL;
-    
+    //Variable para ingresar correctamente a la cola
     indice = prioridad - 1;
     Cola* cola = &colas[indice];
-    
+    //Si la cola esta vacia sera el nuevo frente
     if (cola_Vacia(cola)){
         cola->frente = nuevo;
         cola->final = nuevo;
@@ -73,6 +74,7 @@ void ingresar_Paciente(Cola* colas, char* nombre, int prioridad){
     printf("Paciente %s agregado a cola C%d\n", nombre, prioridad);
 }
 
+// Funcion para desencolar a un paciente teniendo en cuenta las prioridades de las colas C1 a C5
 void atender_Paciente(Cola* colas){
     Paciente* paciente = NULL;
     int prioridad = -1;
@@ -236,6 +238,7 @@ int main(){
 
             case 3:
                 mostrar_Estado(colas);
+                while(getchar() != '\n'); // Limpiar buffer
                 break;
 
             case 4:
@@ -251,7 +254,7 @@ int main(){
                 break;
 
             default:
-                printf("Opción inválida\n");
+                printf("Opcion invalida\n");
                 while(getchar() != '\n'); // Limpiar buffer
         }
     } while (opcion != 5);
