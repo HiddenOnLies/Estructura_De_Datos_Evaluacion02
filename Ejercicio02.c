@@ -76,8 +76,7 @@ void repartir(Pila *a, Pila *b, Pila *c, int codigos[]) {
             push(a, codigos[i]);
         } else if (i % 3 == 1) {
             push(b, codigos[i]);
-        }
-        else {
+        } else {
             push(c, codigos[i]);
         }
     }
