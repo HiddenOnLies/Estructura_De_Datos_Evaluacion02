@@ -213,5 +213,3 @@ int main() {
     liberar(&c);
     return 0;
 }
-
-//Antonella Mondaca tonta
