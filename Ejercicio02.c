@@ -20,8 +20,8 @@ bool estavacia(Pila * compartimento);
 void push(Pila * compartimento, int codigo);
 void pop(Pila * compartimento);
 int top(Pila * compartimento);
-void repartir(Pila *a, Pila *b, Pila *c, int codigos[]);
-void reensamblar(Pila * a, Pila * b, Pila * c, int codigosnuevos[]);
+void repartir(Pila *a, Pila *b, Pila *c);
+void reensamblar(Pila * a, Pila * b, Pila * c);
 void adivinar(Pila * b);
 void liberar(Pila * compartimento);
 void mostrar_uno(Pila * compartimento);
@@ -69,77 +69,86 @@ int top(Pila * compartimento) {
     return compartimento -> cabeza -> cifras;
 }
 
+
 // Repartimos los codigos
-void repartir(Pila *a, Pila *b, Pila *c, int codigos[]) {
+void repartir(Pila * a, Pila * b, Pila * c) {
+    int codigo = 1;
     for (int i = 0; i < CANTIDADCODIGOS; i++) {
         if (i % 3 == 0) {
-            push(a, codigos[i]);
+            push(a, codigo++);
         } else if (i % 3 == 1) {
-            push(b, codigos[i]);
+            push(b, codigo++);
         } else {
-            push(c, codigos[i]);
+            push(c, codigo++);
         }
     }
 }
 
-// Preguntamos al usuario en que compartimento esta su codigo y reensamblamos los compartimentos en la nueva secuencia
-void reensamblar(Pila * a, Pila * b, Pila * c, int codigosnuevos[]) {
+// Preguntamos al usuario en que compartimento esta su codigo y reensamblamos los compartimentos nuevamente
+void reensamblar(Pila * a, Pila * b, Pila * c) {
     char eleccion;
     do {
         printf("¿En que compartimento esta su codigo? ('a', 'b', o 'c'): ");
         scanf(" %c", &eleccion);
-        if (eleccion != 'a' && eleccion != 'b' && eleccion != 'c') {
+        if (eleccion != 'a' && eleccion != 'b' && eleccion != 'c' && eleccion != 'A' && eleccion != 'B' && eleccion != 'C') {
             printf("Error: Eleccion no valida. Intente nuevamente...\n");
         }
-    } while (eleccion != 'a' && eleccion != 'b' && eleccion != 'c');
-    int i = 0;
+    } while (eleccion != 'a' && eleccion != 'b' && eleccion != 'c' && eleccion != 'A' && eleccion != 'B' && eleccion != 'C');
+    Pila * auxiliar = (Pila *)malloc(sizeof(Pila));
+    if (auxiliar == NULL) {
+        printf("Error: Memoria Insuficiente\n");
+        return;
+    }
     if (eleccion == 'a') {
         while (!estavacia(b)) {
-            codigosnuevos[i] = top(b);
+            push(auxiliar, top(b));
             pop(b);
-            i += 1;
         }
         while (!estavacia(a)) {
-            codigosnuevos[i] = top(a);
+            push(auxiliar, top(a));
             pop(a);
-            i += 1;
         }
         while (!estavacia(c)) {
-            codigosnuevos[i] = top(c);
+            push(auxiliar, top(c));
             pop(c);
-            i += 1;
         }
     } else if (eleccion == 'b') {
         while (!estavacia(a)) {
-            codigosnuevos[i] = top(a);
+            push(auxiliar, top(a));
             pop(a);
-            i += 1;
         }
         while (!estavacia(b)) {
-            codigosnuevos[i] = top(b);
+            push(auxiliar, top(b));
             pop(b);
-            i += 1;
         }
         while (!estavacia(c)) {
-            codigosnuevos[i] = top(c);
+            push(auxiliar, top(c));
             pop(c);
-            i += 1;
         }
     } else {
         while (!estavacia(a)) {
-            codigosnuevos[i] = top(a);
+            push(auxiliar, top(a));
             pop(a);
-            i += 1;
         }
         while (!estavacia(c)) {
-            codigosnuevos[i] = top(c);
+            push(auxiliar, top(c));
             pop(c);
-            i += 1;
         }
         while (!estavacia(b)) {
-            codigosnuevos[i] = top(b);
+            push(auxiliar, top(b));
             pop(b);
-            i += 1;
+        }
+    }
+    for (int i = 0; i < CANTIDADCODIGOS; i++) {
+        if (i % 3 == 0) {
+            push(a, top(auxiliar));
+            pop(auxiliar);
+        } else if (i % 3 == 1) {
+            push(b, top(auxiliar));
+            pop(auxiliar);
+        } else {
+            push(c, top(auxiliar));
+            pop(auxiliar);
         }
     }
 }
@@ -193,17 +202,13 @@ int main() {
     Pila b; inicializar(&b);
     Pila c; inicializar(&c);
 
-    int codigos[CANTIDADCODIGOS] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21};
-    repartir(&a, &b, &c, codigos);
-
     printf("\nBienvenido señor agente!!\n");
     printf("Seleccione uno de los 21 codigos que tiene a disposicion y memorizelo: \n");
+    repartir(&a, &b, &c);
     mostrar(&a, &b, &c);
 
-    int codigosnuevos[CANTIDADCODIGOS];
     for (int i = 0; i < 3; i++) {
-        reensamblar(&a, &b, &c, codigosnuevos);
-        repartir(&a, &b, &c, codigosnuevos);
+        reensamblar(&a, &b, &c);
         mostrar(&a, &b, &c);
     }
     adivinar(&b);
