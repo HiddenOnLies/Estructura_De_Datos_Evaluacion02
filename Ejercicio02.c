@@ -99,6 +99,7 @@ void reensamblar(Pila * a, Pila * b, Pila * c) {
         printf("Error: Memoria Insuficiente\n");
         return;
     }
+    inicializar(auxiliar);
     if (eleccion == 'a') {
         while (!estavacia(b)) {
             push(auxiliar, top(b));
