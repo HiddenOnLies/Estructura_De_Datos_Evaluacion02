@@ -101,43 +101,43 @@ void reensamblar(Pila * a, Pila * b, Pila * c) {
     }
     inicializar(auxiliar);
     if (eleccion == 'a') {
-        while (!estavacia(b)) {
-            push(auxiliar, top(b));
-            pop(b);
+        while (!estavacia(c)) {
+            push(auxiliar, top(c));
+            pop(c);
         }
         while (!estavacia(a)) {
             push(auxiliar, top(a));
             pop(a);
         }
-        while (!estavacia(c)) {
-            push(auxiliar, top(c));
-            pop(c);
+        while (!estavacia(b)) {
+            push(auxiliar, top(b);
+            pop(b);
         }
     } else if (eleccion == 'b') {
-        while (!estavacia(a)) {
-            push(auxiliar, top(a));
-            pop(a);
+        while (!estavacia(c)) {
+            push(auxiliar, top(c));
+            pop(c);
         }
         while (!estavacia(b)) {
             push(auxiliar, top(b));
             pop(b);
         }
-        while (!estavacia(c)) {
-            push(auxiliar, top(c));
-            pop(c);
+        while (!estavacia(a)) {
+            push(auxiliar, top(a));
+            pop(a);
         }
     } else {
-        while (!estavacia(a)) {
-            push(auxiliar, top(a));
-            pop(a);
+        while (!estavacia(b)) {
+            push(auxiliar, top(b));
+            pop(b);
         }
         while (!estavacia(c)) {
             push(auxiliar, top(c));
             pop(c);
         }
-        while (!estavacia(b)) {
-            push(auxiliar, top(b));
-            pop(b);
+        while (!estavacia(a)) {
+            push(auxiliar, top(a));
+            pop(a);
         }
     }
     for (int i = 0; i < CANTIDADCODIGOS; i++) {
