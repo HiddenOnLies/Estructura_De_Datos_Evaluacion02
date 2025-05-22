@@ -110,7 +110,7 @@ void reensamblar(Pila * a, Pila * b, Pila * c) {
             pop(a);
         }
         while (!estavacia(b)) {
-            push(auxiliar, top(b);
+            push(auxiliar, top(b));
             pop(b);
         }
     } else if (eleccion == 'b') {
