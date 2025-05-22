@@ -4,9 +4,6 @@
 #include<stdbool.h>
 #define MAX_NOMBRE 100
 #define PRIORIDADES 5
-#ifdef _WIN32
-  #include<windows.h>
-#endif  
 
 // Estructura para definir los datos del paciente
 typedef struct Paciente
@@ -58,7 +55,7 @@ void ingresar_Paciente(Cola* colas, char* nombre, int prioridad){
     strcpy(nuevo->nombre, nombre);
     nuevo->prioridad = prioridad;
     nuevo->siguiente = NULL;
-    //Variable para ingresar correctamente a la cola
+    //Variable para ingresar correctamente a la cola por ejemplo si la prioridad es 1 debemos ingresarla a la cola 0 
     indice = prioridad - 1;
     Cola* cola = &colas[indice];
     //Si la cola esta vacia sera el nuevo frente
@@ -77,25 +74,23 @@ void ingresar_Paciente(Cola* colas, char* nombre, int prioridad){
 // Funcion para desencolar a un paciente teniendo en cuenta las prioridades de las colas C1 a C5
 void atender_Paciente(Cola* colas){
     Paciente* paciente = NULL;
-    int prioridad = -1;
     for (int i = 0; i < PRIORIDADES; i++) {
         if (!cola_Vacia(&colas[i])) {
             paciente = colas[i].frente;
-            prioridad = i + 1;
+            //Actualizar la cola
             colas[i].frente = colas[i].frente->siguiente;
-
             if (colas[i].frente == NULL) {
                 colas[i].final = NULL;
             }
+            //Imprimir mensaje 
+            printf("Atendiendo a %s (Prioridad C%d)\n", paciente->nombre, i + 1);
+            free(paciente);
             break;
         }
     }
     if (paciente == NULL) {
         printf("No hay pacientes en espera\n");
-    } else {
-        printf("Atendiendo a %s (Prioridad C%d)\n", paciente->nombre, prioridad);
-        free(paciente);
-    }
+    } 
 }
 
 void mostrar_Estado(Cola* colas){
@@ -105,7 +100,8 @@ void mostrar_Estado(Cola* colas){
         printf("Cola C%d: ", i+1);
         if (cola_Vacia(&colas[i])) {
             printf("Vacia\n");
-        } else {
+        } 
+        else {
             Paciente* actual = colas[i].frente;
             while (actual != NULL) {
                 printf("%s", actual->nombre);
