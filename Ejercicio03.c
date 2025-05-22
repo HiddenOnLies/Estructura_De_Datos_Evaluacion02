@@ -24,6 +24,13 @@ void insertarPorID(Publicacion** cabeza, Publicacion* nueva);
 void eliminarPorID(Publicacion**cabeza, int ID);
 void imprimirPublicacion(Publicacion* actual);
 void imprimirLista(Publicacion* cabeza);
+void ordenarLikes(Publicacion**cabeza);
+void ordenarComentario(Publicacion** cabeza);
+void ordenarCompartidos(Publicacion** cabeza);
+void cargarArchivo(const char* nombreArchivo);
+void liberarPublicacion(Publicacion* actual);
+void liberarLista(Publicacion* cabeza);
+void menu();
 
 //Funcion para crear un nuevo nodo
 Publicacion* crearpublicacion(int ID, char* usuario, char* titulo, char** imagenes, int num_imagenes, int me_gusta, int comentarios, int compartidos){
@@ -61,7 +68,7 @@ void imprimirLista(Publicacion* cabeza){
     
 }
 
-void ordenarPorLikes(Publicacion** cabeza){
+void ordenarLikes(Publicacion** cabeza){
 
 }
 
