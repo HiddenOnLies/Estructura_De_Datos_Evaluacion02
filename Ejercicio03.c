@@ -140,7 +140,10 @@ void imprimirPublicacion(Publicacion* actual){
     printf("ID: ", actual -> ID);
     printf("Usuario ", actual -> usuario);
     printf("Titulo: ", actual -> titulo );
-    printf("Imagenes: ", actual -> imagenes);
+    printf("Imagenes: ");
+    for(int i = 0; i < actual->num_imagenes; i++){
+        printf("%s", actual->imagenes[i]);
+    }
     printf("Like: ", actual -> me_gusta);
     printf("Comentarios: ", actual -> comentarios);
     printf("Compartidos: ", actual -> compartidos);
