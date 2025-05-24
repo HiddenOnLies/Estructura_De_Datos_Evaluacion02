@@ -162,22 +162,35 @@ void insertarPorID(Publicacion** cabeza, Publicacion* nueva){
     }
 }
 
-void eliminarPorID(Publicacion**cabeza, int ID){
-    if (* cabeza == NULL) {
+void eliminarPorID(Publicacion** cabeza, int ID) {
+    if (*cabeza == NULL) {
         printf("Error: No hay publicaciones en la lista\n");
         return;
     }
     Publicacion* actual = *cabeza;
-    //Recorremos la lista hasta dar con el ID ingresado
-    while(actual->siguiente != NULL && actual->siguiente->ID != ID){
-            actual = actual->siguiente;
+    Publicacion* anterior = NULL;
+    // Caso que pasa si la publicacion a eliminar es la cabeza
+    if (actual != NULL && actual->ID == ID) {
+        *cabeza = actual->siguiente; // Cambia la cabeza
+        liberarPublicacion(actual);
+        printf("Publicacion con ID %d eliminada\n", ID);
+        return;
     }
-    //Liberamos la publicacion solo si es la que necesitamos
-    if(actual->siguiente != NULL){
-        Publicacion* temp = actual->siguiente;
-        actual->siguiente = actual->siguiente->siguiente;
-        liberarPublicacion(temp);
+    // Recorreremos las publicaciones hasta encontrar el ID
+    while (actual != NULL && actual->ID != ID) {
+        anterior = actual;
+        actual = actual->siguiente;
     }
+    // Caso que pasa si no se encontró el ID
+    if (actual == NULL) {
+        printf("Error: No se encontro publicacion con ID %d\n", ID);
+        return;
+    }
+    // Desenlazamos la publicacion actual de la lista y enlazamos la publicacion anterior como corresponde
+    anterior->siguiente = actual->siguiente;
+    // Liberamos memoria
+    liberarPublicacion(actual);
+    printf("Publicacion con ID %d eliminada\n", ID);
 }
 
 void imprimirPublicacion(Publicacion* actual){
