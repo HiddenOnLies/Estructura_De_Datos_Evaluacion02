@@ -77,7 +77,7 @@ void insertarFinal(Publicacion** cabeza, Publicacion* nueva){
 // Eliminamos el inicio de la lista
 void eliminarInicio(Publicacion** cabeza){
     if (* cabeza == NULL) {
-        printf("Error: No hay publicaciones en lista\n");
+        printf("Error: No hay publicaciones en la lista\n");
         return;
     }
     Publicacion * actual = * cabeza;
@@ -88,7 +88,7 @@ void eliminarInicio(Publicacion** cabeza){
 // Eliminamos el final de la lista
 void eliminarFinal(Publicacion** cabeza){
     if (* cabeza == NULL) {
-        printf("Error: No hay publicaciones en lista\n");
+        printf("Error: No hay publicaciones en la lista\n");
         return;
     }
     if ((* cabeza) -> siguiente == NULL) {
@@ -123,7 +123,7 @@ void insertarPorID(Publicacion** cabeza, Publicacion* nueva){
 
 void eliminarPorID(Publicacion**cabeza, int ID){
     if (* cabeza == NULL) {
-        printf("Error: No hay publicaciones en lista\n");
+        printf("Error: No hay publicaciones en la lista\n");
         return;
     }
     Publicacion* actual = *cabeza;
@@ -153,10 +153,15 @@ void imprimirPublicacion(Publicacion* actual){
 }
 
 void imprimirLista(Publicacion* cabeza){
-    while(cabeza -> siguiente != NULL){
-        printf(cabeza);
+    if (cabeza == NULL) {
+        printf("Error: No hay publicaciones en la lista\n");
+        return;
+    Publicacion* actual = cabeza;
+    while(actual -> siguiente != NULL){
+        imprimirPublicacion(actual);
+        actual = actual -> siguiente;
     }
-    
+    imprimirPublicacion(actual);
 }
 
 void intercambiaDatos(Publicacion* a, Publicacion* b ){
