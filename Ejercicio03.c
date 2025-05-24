@@ -181,31 +181,31 @@ void eliminarPorID(Publicacion**cabeza, int ID){
 }
 
 void imprimirPublicacion(Publicacion* actual){
-    printf("ID: \n%d", actual -> ID);
-    printf("Usuario: \n%s", actual -> usuario);
-    printf("Titulo: \n%s", actual -> titulo );
+    printf("ID: %d\n", actual -> ID);
+    printf("Usuario: %s\n", actual -> usuario);
+    printf("Titulo: %s\n", actual -> titulo );
     printf("Imagenes: ");
     for(int i = 0; i < actual->num_imagenes; i++){
         printf("%s", actual->imagenes[i]);
     }
-    printf("Like: \n%d", actual -> me_gusta);
-    printf("Comentarios: \n%d", actual -> comentarios);
-    printf("Compartidos: \n%d", actual -> compartidos);
+    printf("\nLike: %d\n", actual -> me_gusta);
+    printf("Comentarios: %d\n", actual -> comentarios);
+    printf("Compartidos: %d\n", actual -> compartidos);
 }
 
-void imprimirLista(Publicacion* cabeza){
+void imprimirLista(Publicacion* cabeza) {
     if (cabeza == NULL) {
-        printf("Error: No hay publicaciones en la lista\n");
+        printf("No hay publicaciones en la lista\n");
         return;
-    Publicacion* actual = cabeza;
-    int i = 0;
-    while(actual -> siguiente != NULL){
-        printf("\nPublicacion %d", i + 1);
-        imprimirPublicacion(actual);
-        i += 1;
-        actual = actual -> siguiente;
     }
-    imprimirPublicacion(actual);
+    
+    Publicacion* actual = cabeza;
+    int i = 1;
+    
+    while (actual != NULL) {
+        printf("\n--- Publicacion %d ---", i++);
+        imprimirPublicacion(actual);
+        actual = actual->siguiente;
     }
 }
 
