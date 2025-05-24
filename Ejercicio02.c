@@ -49,7 +49,7 @@ void push(Pila * compartimento, int codigo) {
     compartimento -> cabeza = nuevo;
 }
 
-// Eliminamos y retornamos la cabeza del compartimento correspodiente
+// Eliminamos la cabeza del compartimento correspodiente
 void pop(Pila * compartimento) {
     if (estavacia(compartimento)) {
         printf("Error: Compartimento vacio\n");
@@ -94,6 +94,7 @@ void reensamblar(Pila * a, Pila * b, Pila * c) {
             printf("Error: Eleccion no valida. Intente nuevamente...\n");
         }
     } while (eleccion != 'a' && eleccion != 'b' && eleccion != 'c' && eleccion != 'A' && eleccion != 'B' && eleccion != 'C');
+    // Obtenemos y eliminamos de cada compartimento todos sus codigos para volverlos a ordenar
     Pila * auxiliar = (Pila *)malloc(sizeof(Pila));
     if (auxiliar == NULL) {
         printf("Error: Memoria Insuficiente\n");

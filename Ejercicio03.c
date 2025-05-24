@@ -198,10 +198,8 @@ void imprimirLista(Publicacion* cabeza) {
         printf("Error: No hay publicaciones en la lista\n");
         return;
     }
-    
     Publicacion* actual = cabeza;
     int i = 1;
-    
     while (actual != NULL) {
         printf("\n--- Publicacion %d ---\n", i++);
         imprimirPublicacion(actual);
@@ -350,6 +348,7 @@ Publicacion* cargarArchivo(const char* nombreArchivo) {
     }
     
     Publicacion* lista = NULL;
+    // Cantidad maxima de caracteres por lineas
     char linea[2048];
     
     while (fgets(linea, sizeof(linea), archivo)) {
