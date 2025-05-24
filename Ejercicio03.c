@@ -362,8 +362,7 @@ Publicacion* cargarArchivo(const char* nombreArchivo) {
         char imagenes_str[500], metricas_str[100];
         
         // Parsear la línea
-        if (sscanf(linea, "%d; %99[^;]; %199[^;]; %499[^;]; %99[^;];", 
-                  &ID, usuario, titulo, imagenes_str, metricas_str) != 5) {
+        if (sscanf(linea, "%d; %99[^;]; %199[^;]; %499[^;]; %99[^;];", &ID, usuario, titulo, imagenes_str, metricas_str) != 5) {
             printf("Formato incorrecto en línea: %s\n", linea);
             continue;
         }
@@ -373,26 +372,28 @@ Publicacion* cargarArchivo(const char* nombreArchivo) {
         int num_imagenes = 0;
         
         // Eliminar corchetes de las imágenes
-        char* img_start = strchr(imagenes_str, '[');
-        char* img_end = strchr(imagenes_str, ']');
-        if (img_start && img_end) {
-            *img_end = '\0';
-            char* token = strtok(img_start + 1, ",");
-            while (token != NULL && num_imagenes < 20) {
+        char* img_inicio = strchr(imagenes_str, '[');
+        char* img_final = strchr(imagenes_str, ']');
+        if (img_inicio && img_final) {
+            *img_final = '\0';
+            char* separado = strtok(img_inicio + 1, ",");
+            while (separado != NULL && num_imagenes < 20) {
                 // Eliminar espacios en blanco
-                while (*token == ' ') token++;
-                char* end = token + strlen(token) - 1;
-                while (end > token && *end == ' ') end--;
-                *(end + 1) = '\0';
+                while (*separado == ' ') {
+                    separado++;
+                }
+                char* final = separado + strlen(separado) - 1;
+                while (final > separado && *final == ' ') final--;
+                *(final + 1) = '\0';
                 
-                if (*token != '\0') {
-                    imagenes[num_imagenes] = (char*)malloc(strlen(token) + 1);
+                if (*separado != '\0') {
+                    imagenes[num_imagenes] = (char*)malloc(strlen(separado) + 1);
                     if (imagenes[num_imagenes] != NULL) {
-                        strcpy(imagenes[num_imagenes], token);
+                        strcpy(imagenes[num_imagenes], separado);
                         num_imagenes++;
                     }
                 }
-                token = strtok(NULL, ",");
+                separado = strtok(NULL, ",");
             }
         }
         
