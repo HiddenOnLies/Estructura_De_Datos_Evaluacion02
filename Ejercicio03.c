@@ -160,8 +160,62 @@ void imprimirLista(Publicacion* cabeza){
     
 }
 
-void ordenarLikes(Publicacion** cabeza){
+void intercambiaDatos(Publicacion* a, Publicacion* b ){
+    Publicacion temp = *a;
+    
+    // Intercambiar todos los campos excepto 'siguiente'
+    a->ID = b->ID;
+    strcpy(a->usuario, b->usuario);
+    strcpy(a->titulo, b->titulo);
+    
+    // Intercambiar arreglo de imágenes
+    char** temp_imagenes = a->imagenes;
+    a->imagenes = b->imagenes;
+    b->imagenes = temp_imagenes;
+    
+    // Intercambiar valores numéricos
+    a->num_imagenes = b->num_imagenes;
+    a->me_gusta = b->me_gusta;
+    a->comentarios = b->comentarios;
+    a->compartidos = b->compartidos;
+    
+    // Asignar los valores a b
+    b->ID = temp.ID;
+    strcpy(b->usuario, temp.usuario);
+    strcpy(b->titulo, temp.titulo);
+    b->imagenes = temp.imagenes;
+    b->num_imagenes = temp.num_imagenes;
+    b->me_gusta = temp.me_gusta;
+    b->comentarios = temp.comentarios;
+    b->compartidos = temp.compartidos;
 
+}
+
+void ordenarLikes(Publicacion** cabeza){
+    if(*cabeza == NULL || (*cabeza)->siguiente == NULL){
+        printf("Error: No se puede ordenar datos insuficientes");
+        return;
+    }
+    //Intercambia actua como un bool 
+    int intercambia = 0;
+    Publicacion* ptr1;
+    Publicacion* ptr2;
+    do
+    {
+        ptr1 = *cabeza;
+        while (ptr1->siguiente != ptr2)
+        {
+            if (ptr1->me_gusta < ptr1->siguiente->me_gusta)
+            {
+                //Intercambiar datos
+                Publicacion* temp = *ptr1;
+                *ptr1 = *(ptr1->siguiente);
+                *(ptr1->siguiente) = temp;
+            }
+        }
+    }  
+    while (condition);
+    
 }
 
 void ordenarComentario(Publicacion** cabeza){
