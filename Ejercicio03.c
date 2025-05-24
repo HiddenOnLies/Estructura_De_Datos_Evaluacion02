@@ -195,7 +195,7 @@ void imprimirPublicacion(Publicacion* actual){
 
 void imprimirLista(Publicacion* cabeza) {
     if (cabeza == NULL) {
-        printf("No hay publicaciones en la lista\n");
+        printf("Error: No hay publicaciones en la lista\n");
         return;
     }
     
@@ -242,7 +242,7 @@ void intercambiaDatos(Publicacion* a, Publicacion* b ){
 
 void ordenarLikes(Publicacion** cabeza){
     if(*cabeza == NULL || (*cabeza)->siguiente == NULL){
-        printf("Error: No se puede ordenar datos insuficientes");
+        printf("Error: No se puede ordenar, datos insuficientes");
         return;
     }
     //Intercambia actua como un bool 
@@ -269,7 +269,7 @@ void ordenarLikes(Publicacion** cabeza){
 
 void ordenarComentario(Publicacion** cabeza){
     if(*cabeza == NULL || (*cabeza)->siguiente == NULL){
-        printf("Error: No se puede ordenar datos insuficientes");
+        printf("Error: No se puede ordenar, datos insuficientes");
         return;
     }
     //Intercambia actua como un bool 
@@ -296,7 +296,7 @@ void ordenarComentario(Publicacion** cabeza){
 
 void ordenarCompartidos(Publicacion** cabeza){
     if(*cabeza == NULL || (*cabeza)->siguiente == NULL){
-        printf("Error: No se puede ordenar datos insuficientes");
+        printf("Error: No se puede ordenar, datos insuficientes");
         return;
     }
     //Intercambia actua como un bool 
@@ -345,7 +345,7 @@ void liberarLista(Publicacion* cabeza){
 Publicacion* cargarArchivo(const char* nombreArchivo) {
     FILE* archivo = fopen(nombreArchivo, "r");
     if (archivo == NULL) {
-        printf("Archivo no encontrado. Se creará una lista vacía.\n");
+        printf("Error: Archivo no encontrado. Se creará una lista vacía.\n");
         return NULL;
     }
     
