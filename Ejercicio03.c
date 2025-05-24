@@ -27,7 +27,7 @@ void imprimirLista(Publicacion* cabeza);
 void ordenarLikes(Publicacion**cabeza);
 void ordenarComentario(Publicacion** cabeza);
 void ordenarCompartidos(Publicacion** cabeza);
-void cargarArchivo(const char* nombreArchivo);
+Publicacion * cargarArchivo(const char* nombreArchivo);
 void liberarPublicacion(Publicacion* actual);
 void liberarLista(Publicacion* cabeza);
 void menu();
@@ -156,8 +156,13 @@ void ordenarCompartidos(Publicacion** cabeza){
 
 }
 
-void cargarArchivo(const char* nombreArchivo){
-
+Publicacion * cargarArchivo(const char* nombreArchivo){
+    FILE * archivo;
+    archivo = fopen(nombreArchivo, "r");
+    if (archivo == NULL) {
+        printf("Error: No se pudo abrir el archivo");
+        exit(EXIT_FAILURE);
+    }
 }
 
 // Liberamos la publicacion correspondiente asegurandonos que el arreglo de strings de las imagenes sea liberado igualmente
