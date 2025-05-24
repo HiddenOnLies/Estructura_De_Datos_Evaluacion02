@@ -71,6 +71,7 @@ void insertarFinal(Publicacion** cabeza, Publicacion* nueva){
     nueva -> siguiente = NULL;
 }
 
+// Eliminamos el inicio de la lista
 void eliminarInicio(Publicacion** cabeza){
     if (* cabeza == NULL) {
         printf("Error: No hay publicaciones en lista\n");
@@ -81,6 +82,7 @@ void eliminarInicio(Publicacion** cabeza){
     liberarPublicacion(actual);
 }
 
+// Eliminamos el final de la lista
 void eliminarFinal(Publicacion** cabeza){
     if (* cabeza == NULL) {
         printf("Error: No hay publicaciones en lista\n");
@@ -100,7 +102,6 @@ void eliminarFinal(Publicacion** cabeza){
 }
 
 void insertarPorID(Publicacion** cabeza, Publicacion* nueva){
-
 }
 
 void eliminarPorID(Publicacion**cabeza, int ID){
