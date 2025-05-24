@@ -157,8 +157,11 @@ void imprimirLista(Publicacion* cabeza){
         printf("Error: No hay publicaciones en la lista\n");
         return;
     Publicacion* actual = cabeza;
+    int i = 0;
     while(actual -> siguiente != NULL){
+        printf("\nPublicacion %d", i + 1);
         imprimirPublicacion(actual);
+        i += 1;
         actual = actual -> siguiente;
     }
     imprimirPublicacion(actual);
