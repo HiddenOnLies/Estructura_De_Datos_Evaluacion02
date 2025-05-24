@@ -188,7 +188,7 @@ void imprimirPublicacion(Publicacion* actual){
     for(int i = 0; i < actual->num_imagenes; i++){
         printf("%s, ", actual->imagenes[i]);
     }
-    printf("\nLike: %d\n", actual -> me_gusta);
+    printf("\nLikes: %d\n", actual -> me_gusta);
     printf("Comentarios: %d\n", actual -> comentarios);
     printf("Compartidos: %d\n", actual -> compartidos);
 }
