@@ -186,7 +186,7 @@ void imprimirPublicacion(Publicacion* actual){
     printf("Titulo: %s\n", actual -> titulo );
     printf("Imagenes: ");
     for(int i = 0; i < actual->num_imagenes; i++){
-        printf("%s", actual->imagenes[i]);
+        printf("%s, ", actual->imagenes[i]);
     }
     printf("\nLike: %d\n", actual -> me_gusta);
     printf("Comentarios: %d\n", actual -> comentarios);
@@ -343,72 +343,75 @@ void liberarLista(Publicacion* cabeza){
 }
 
 Publicacion* cargarArchivo(const char* nombreArchivo) {
-    FILE * archivo = fopen(nombreArchivo, "r");
+    FILE* archivo = fopen(nombreArchivo, "r");
     if (archivo == NULL) {
-        perror("Error: No se pudo abrir el archivo");
+        printf("Archivo no encontrado. Se creará una lista vacía.\n");
         return NULL;
     }
-    Publicacion * lista = NULL;
-    char linea[2048]; // Cantidad maxima de caracteres para cada línea
-
+    
+    Publicacion* lista = NULL;
+    char linea[2048];
+    
     while (fgets(linea, sizeof(linea), archivo)) {
         // Eliminar salto de línea
         linea[strcspn(linea, "\n")] = '\0';
         
-        // Variables temporales para almacenar los datos
+        // Variables temporales
         int ID;
-        char usuario[100];
-        char titulo[200];
-        char imagenes_str[500];
-        char metricas_str[100];
+        char usuario[100], titulo[200];
+        char imagenes_str[500], metricas_str[100];
         
-        // Parsear los campos principales
-        if (sscanf(linea, "%d; %99[^;]; %199[^;]; %499[^;]; %99[^;];", &ID, usuario, titulo, imagenes_str, metricas_str) != 5) {
-            fprintf(stderr, "Formato inválido en línea: %s\n", linea);
+        // Parsear la línea
+        if (sscanf(linea, "%d; %99[^;]; %199[^;]; %499[^;]; %99[^;];", 
+                  &ID, usuario, titulo, imagenes_str, metricas_str) != 5) {
+            printf("Formato incorrecto en línea: %s\n", linea);
             continue;
         }
-
+        
         // Procesar imágenes
-        char * imagenes[20]; // Máximo 20 imágenes
+        char* imagenes[20] = {NULL};
         int num_imagenes = 0;
-        char * separado = strtok(imagenes_str, "[,]"); // Separar por [ , ]
-
-        while (separado != NULL && num_imagenes < 20) {
-            // Eliminar espacios alrededor del nombre de la imagen
-            while (* separado == ' ') {
-                separado;
-                separado += 1;
+        
+        // Eliminar corchetes de las imágenes
+        char* img_start = strchr(imagenes_str, '[');
+        char* img_end = strchr(imagenes_str, ']');
+        if (img_start && img_end) {
+            *img_end = '\0';
+            char* token = strtok(img_start + 1, ",");
+            while (token != NULL && num_imagenes < 20) {
+                // Eliminar espacios en blanco
+                while (*token == ' ') token++;
+                char* end = token + strlen(token) - 1;
+                while (end > token && *end == ' ') end--;
+                *(end + 1) = '\0';
+                
+                if (*token != '\0') {
+                    imagenes[num_imagenes] = (char*)malloc(strlen(token) + 1);
+                    if (imagenes[num_imagenes] != NULL) {
+                        strcpy(imagenes[num_imagenes], token);
+                        num_imagenes++;
+                    }
+                }
+                token = strtok(NULL, ",");
             }
-            char * fin = separado + strlen(separado) - 1;
-            while (fin > separado && * fin == ' ') {
-                * fin = '\0';
-                fin -= 1;
-            }
-            if (*fin != '\0') {
-                imagenes[num_imagenes] = strdup(fin);
-                num_imagenes++;
-            }
-            separado = strtok(NULL, "[,]");
         }
-
+        
         // Procesar métricas
-        int me_gusta = 0;
-        int comentarios = 0;
-        int compartidos = 0;
+        int me_gusta = 0, comentarios = 0, compartidos = 0;
         sscanf(metricas_str, "[%d, %d, %d]", &me_gusta, &comentarios, &compartidos);
-
-        // Crear la publicación
-        Publicacion *nueva = crearpublicacion(ID, usuario, titulo, imagenes, num_imagenes, me_gusta, comentarios, compartidos);
-        if (nueva) {
+        
+        // Crear publicación
+        Publicacion* nueva = crearpublicacion(ID, usuario, titulo, imagenes, num_imagenes, me_gusta, comentarios, compartidos);
+        if (nueva != NULL) {
             insertarFinal(&lista, nueva);
         }
-
-        // Liberar memoria temporal de imágenes
+        
+        // Liberar memoria temporal
         for (int i = 0; i < num_imagenes; i++) {
             free(imagenes[i]);
         }
     }
-
+    
     fclose(archivo);
     return lista;
 }

@@ -1,0 +1,5 @@
+1001; Juan Pérez; #VacacionesEnLaPlaya; [foto1.jpg, foto2.jpg, foto3.jpg]; [45, 12, 5];
+2002; María García; #ComidaDeliciosa; [plato1.jpg, postre.jpg]; [120, 8, 15];
+3003; Carlos López; #AventuraEnMontaña; [panoramica.jpg, selfie.jpg, grupo.jpg]; [89, 5, 7];
+4004; Ana Martínez; #LibroRecomendado; [portada.jpg]; [30, 3, 2];
+5005; Luis Rodríguez; #ConciertoInolvidable; [escenario.jpg, banda.jpg, publico.jpg]; [150, 20, 25];
