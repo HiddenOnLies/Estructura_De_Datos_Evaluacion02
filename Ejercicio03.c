@@ -40,10 +40,13 @@ Publicacion* crearpublicacion(int ID, char* usuario, char* titulo, char** imagen
         exit(EXIT_FAILURE);
     }
     nueva -> ID = ID;
-    nueva -> usuario = usuario;
-    nueva -> titulo = titulo;
-    nueva -> imagenes = * imagenes;
+    strcpy(nueva -> usuario, usuario);
+    strcpy(nueva -> titulo, titulo);
     nueva -> num_imagenes = num_imagenes;
+    nueva -> imagenes = malloc(num_imagenes * sizeof(char*));
+    for (int i = 0; i < num_imagenes; i++) {
+        strcpy(nueva -> imagenes[i], imagenes[i]);
+    }
     nueva -> me_gusta = me_gusta;
     nueva -> comentarios = comentarios;
     nueva -> compartidos = compartidos;
@@ -179,10 +182,12 @@ Publicacion * cargarArchivo(const char* nombreArchivo){
     fclose(archivo);
 }
 
-// Liberamos la publicacion correspondiente asegurandonos que el arreglo de strings de las imagenes sea liberado igualmente
+// Liberamos la publicacion correspondiente asegurandonos que el arreglo de strings sean liberados igualmente
 void liberarPublicacion(Publicacion* actual){
+    free(actual->usuario);
+    free(actual->titulo);
     for (int i = 0; i < actual->num_imagenes; i++) {
-        free(actual->imagenes);
+        free(actual->imagenes[i]);
     }
     free(actual->imagenes);
     free(actual);
