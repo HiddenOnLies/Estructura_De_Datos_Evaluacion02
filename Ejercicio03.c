@@ -32,24 +32,65 @@ void liberarPublicacion(Publicacion* actual);
 void liberarLista(Publicacion* cabeza);
 void menu();
 
-//Funcion para crear un nuevo nodo
+// Creamos una nueva publicacion
 Publicacion* crearpublicacion(int ID, char* usuario, char* titulo, char** imagenes, int num_imagenes, int me_gusta, int comentarios, int compartidos){
+    Publicacion * nueva = (Publicacion *)malloc(sizeof(Publicacion));
+    if (nueva == NULL) {
+        printf("Error: Memoria insuficiente\n");
+        exit(EXIT_FAILURE);
+    }
+    nueva -> ID = ID;
+    nueva -> usuario = usuario;
+    nueva -> titulo = titulo;
+    nueva -> imagenes = * imagenes;
+    nueva -> num_imagenes = num_imagenes;
+    nueva -> me_gusta = me_gusta;
+    nueva -> comentarios = comentarios;
+    nueva -> compartidos = compartidos;
+    return nueva;
 }
 
+// Insertamos una publicacion al inicio de la lista
 void insertarInicio(Publicacion** cabeza, Publicacion* nueva){
-
+    nueva -> siguiente = * cabeza;
+    * cabeza = nueva;
 }
 
+// Insertamos una publicacion al final de la lista
 void insertarFinal(Publicacion** cabeza, Publicacion* nueva){
-
+    if (* cabeza == NULL) {
+        * cabeza = nueva;
+        nueva -> siguiente = NULL;
+        return;
+    }
+    Publicacion * actual = * cabeza;
+    while (actual -> siguiente != NULL) {
+        actual = actual -> siguiente;
+    }
+    actual -> siguiente = nueva;
+    nueva -> siguiente = NULL;
 }
 
 void eliminarInicio(Publicacion** cabeza){
-
+    if (* cabeza == NULL) {
+        printf("Error: No hay publicaciones en lista\n");
+        return;
+    }
+    Publicacion * actual = * cabeza;
+    * cabeza = actual -> siguiente;
+    liberarPublicacion(actual);
 }
 
 void eliminarFinal(Publicacion** cabeza){
-
+    if (* cabeza == NULL) {
+        printf("Error: No hay publicaciones en lista\n");
+        return;
+    }
+    Publicacion * actual = * cabeza;
+    while (actual -> siguiente != NULL) {
+        actual = actual -> siguiente;
+    }
+    liberarPublicacion(actual);
 }
 
 void insertarPorID(Publicacion** cabeza, Publicacion* nueva){
@@ -84,6 +125,7 @@ void cargarArchivo(const char* nombreArchivo){
 
 }
 
+// Liberamos la publicacion correspondiente asegurandonos que el arreglo de strings de las imagenes sea liberado igualmente
 void liberarPublicacion(Publicacion* actual){
     for (int i = 0; i < actual->num_imagenes; i++) {
         free(actual->imagenes);
@@ -92,6 +134,7 @@ void liberarPublicacion(Publicacion* actual){
     free(actual);
 }
 
+// Liberamos la lista de publicaciones completa liberando cada publicacion una a una
 void liberarLista(Publicacion* cabeza){
     Publicacion* actual = cabeza;
     while (actual != NULL) {
