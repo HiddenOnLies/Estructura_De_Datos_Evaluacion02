@@ -388,58 +388,56 @@ void menu(){
     printf("Seleccione una opción: ");
 }
 
-int main(){
+int main() {
     Publicacion* lista = cargarArchivo("status_ini_social_net.txt");
     int opcion;
+    int ID;
+    char usuario[100];
+    char titulo[200];
+    int num_imagenes;
+    char** imagenes;
+    int me_gusta;
+    int comentarios;
+    int compartidos;
+    char img[100];
+    Publicacion* nueva;
     
     do {
         menu();
         scanf("%d", &opcion);
-        getchar(); // Limpiar buffer
         
         switch (opcion) {
-            case 1: {
-                // Insertar al inicio
+            case 1: { // Insertar al inicio
                 printf("Ingrese ID: ");
-                int ID;
                 scanf("%d", &ID);
                 
                 printf("Ingrese usuario: ");
-                char usuario[100];
-                fgets(usuario, sizeof(usuario), stdin);
+                scanf(" %[^\n]", usuario);
                 
                 printf("Ingrese título: ");
-                char titulo[200];
-                fgets(titulo, sizeof(titulo), stdin);
+                scanf(" %[^\n]", titulo);
                 
                 printf("Número de imágenes: ");
-                int num_imagenes;
                 scanf("%d", &num_imagenes);
                 
-                char** imagenes = (char**)malloc(num_imagenes * sizeof(char*));
+                imagenes = (char**)malloc(num_imagenes * sizeof(char*));
                 for (int i = 0; i < num_imagenes; i++) {
                     printf("Imagen %d: ", i+1);
-                    char img[100];
-                    fgets(img, sizeof(img), stdin);
-                    img[strcspn(img, "\n")] = 0;
+                    scanf(" %[^\n]", img);
                     imagenes[i] = (char*)malloc(strlen(img) + 1);
                     strcpy(imagenes[i], img);
                 }
                 
                 printf("Me gusta: ");
-                int me_gusta;
                 scanf("%d", &me_gusta);
                 
                 printf("Comentarios: ");
-                int comentarios;
                 scanf("%d", &comentarios);
                 
                 printf("Compartidos: ");
-                int compartidos;
                 scanf("%d", &compartidos);
                 
-                Publicacion* nueva = crearpublicacion(ID, usuario, titulo, imagenes, 
-                                                     num_imagenes, me_gusta, comentarios, compartidos);
+                nueva = crearpublicacion(ID, usuario, titulo, imagenes, num_imagenes, me_gusta, comentarios, compartidos);
                 insertarInicio(&lista, nueva);
                 
                 // Liberar memoria temporal
@@ -449,48 +447,37 @@ int main(){
                 free(imagenes);
                 break;
             }
-            case 2:
-                // Insertar al final
+            case 2: { // Insertar al final
                 printf("Ingrese ID: ");
-                int ID;
                 scanf("%d", &ID);
                 
                 printf("Ingrese usuario: ");
-                char usuario[100];
-                fgets(usuario, sizeof(usuario), stdin);
+                scanf(" %[^\n]", usuario);
                 
                 printf("Ingrese título: ");
-                char titulo[200];
-                fgets(titulo, sizeof(titulo), stdin);
+                scanf(" %[^\n]", titulo);
                 
                 printf("Número de imágenes: ");
-                int num_imagenes;
                 scanf("%d", &num_imagenes);
                 
-                char** imagenes = (char**)malloc(num_imagenes * sizeof(char*));
+                imagenes = (char**)malloc(num_imagenes * sizeof(char*));
                 for (int i = 0; i < num_imagenes; i++) {
                     printf("Imagen %d: ", i+1);
-                    char img[100];
-                    fgets(img, sizeof(img), stdin);
-                    img[strcspn(img, "\n")] = 0;
+                    scanf(" %[^\n]", img);
                     imagenes[i] = (char*)malloc(strlen(img) + 1);
                     strcpy(imagenes[i], img);
                 }
                 
                 printf("Me gusta: ");
-                int me_gusta;
                 scanf("%d", &me_gusta);
                 
                 printf("Comentarios: ");
-                int comentarios;
                 scanf("%d", &comentarios);
                 
                 printf("Compartidos: ");
-                int compartidos;
                 scanf("%d", &compartidos);
                 
-                Publicacion* nueva = crearpublicacion(ID, usuario, titulo, imagenes, 
-                                                     num_imagenes, me_gusta, comentarios, compartidos);
+                nueva = crearpublicacion(ID, usuario, titulo, imagenes, num_imagenes, me_gusta, comentarios, compartidos);
                 insertarFinal(&lista, nueva);
                 
                 // Liberar memoria temporal
@@ -499,48 +486,38 @@ int main(){
                 }
                 free(imagenes);
                 break;
-            case 3:
-                // Insertar Ordenado
+            }
+            case 3: { // Insertar ordenado por ID
                 printf("Ingrese ID: ");
-                int ID;
                 scanf("%d", &ID);
                 
                 printf("Ingrese usuario: ");
-                char usuario[100];
-                fgets(usuario, sizeof(usuario), stdin);
+                scanf(" %[^\n]", usuario);
                 
                 printf("Ingrese título: ");
-                char titulo[200];
-                fgets(titulo, sizeof(titulo), stdin);
+                scanf(" %[^\n]", titulo);
                 
                 printf("Número de imágenes: ");
-                int num_imagenes;
                 scanf("%d", &num_imagenes);
                 
-                char** imagenes = (char**)malloc(num_imagenes * sizeof(char*));
+                imagenes = (char**)malloc(num_imagenes * sizeof(char*));
                 for (int i = 0; i < num_imagenes; i++) {
                     printf("Imagen %d: ", i+1);
-                    char img[100];
-                    fgets(img, sizeof(img), stdin);
-                    img[strcspn(img, "\n")] = 0;
+                    scanf(" %[^\n]", img);
                     imagenes[i] = (char*)malloc(strlen(img) + 1);
                     strcpy(imagenes[i], img);
                 }
                 
                 printf("Me gusta: ");
-                int me_gusta;
                 scanf("%d", &me_gusta);
                 
                 printf("Comentarios: ");
-                int comentarios;
                 scanf("%d", &comentarios);
                 
                 printf("Compartidos: ");
-                int compartidos;
                 scanf("%d", &compartidos);
                 
-                Publicacion* nueva = crearpublicacion(ID, usuario, titulo, imagenes, 
-                                                     num_imagenes, me_gusta, comentarios, compartidos);
+                nueva = crearpublicacion(ID, usuario, titulo, imagenes, num_imagenes, me_gusta, comentarios, compartidos);
                 insertarPorID(&lista, nueva);
                 
                 // Liberar memoria temporal
@@ -549,37 +526,46 @@ int main(){
                 }
                 free(imagenes);
                 break;
-            case 4: 
+            }
+            case 4: // Eliminar inicio
                 eliminarInicio(&lista);
                 break;
-            case 5:
+                
+            case 5: // Eliminar final
                 eliminarFinal(&lista);
                 break;
-            case 6:
-                printf("Ingrese el ID de la publicacion que desea eliminar: \n");
-                int ID;
+                
+            case 6: // Eliminar por ID
+                printf("Ingrese el ID de la publicacion que desea eliminar: ");
                 scanf("%d", &ID);
                 eliminarPorID(&lista, ID);
-            case 7:
+                break;
+                
+            case 7: // Mostrar publicaciones
                 imprimirLista(lista);
                 break;
-            case 8:
+                
+            case 8: // Ordenar por likes
                 ordenarLikes(&lista);
                 printf("Publicaciones ordenadas por likes\n");
                 break;
-            case 9:
+                
+            case 9: // Ordenar por comentarios
                 ordenarComentario(&lista);
                 printf("Publicaciones ordenadas por comentarios\n");
                 break;
-            case 10:
+                
+            case 10: // Ordenar por compartidos
                 ordenarCompartidos(&lista);
                 printf("Publicaciones ordenadas por compartidos\n");
                 break;
-            case 0:
+                
+            case 0: // Salir
                 printf("Saliendo...\n");
                 break;
+                
             default:
-                printf("Opcion no valida\n");
+                printf("Opción no válida\n");
         }
     } while(opcion != 0);
     
