@@ -196,11 +196,12 @@ void ordenarLikes(Publicacion** cabeza){
         return;
     }
     //Intercambia actua como un bool 
-    int intercambia = 0;
+    int intercambia = 1;
     Publicacion* ptr1;
-    Publicacion* ptr2;
+    Publicacion* ptr2 = NULL;
     do
-    {
+    {   
+        intercambia = 0;
         ptr1 = *cabeza;
         while (ptr1->siguiente != ptr2)
         {
@@ -217,10 +218,56 @@ void ordenarLikes(Publicacion** cabeza){
 }
 
 void ordenarComentario(Publicacion** cabeza){
-
+    if(*cabeza == NULL || (*cabeza)->siguiente == NULL){
+        printf("Error: No se puede ordenar datos insuficientes");
+        return;
+    }
+    //Intercambia actua como un bool 
+    int intercambia = 1;
+    Publicacion* ptr1;
+    Publicacion* ptr2 = NULL;
+    do
+    {   
+        intercambia = 0;
+        ptr1 = *cabeza;
+        while (ptr1->siguiente != ptr2)
+        {
+            if (ptr1->comentarios < ptr1->siguiente->comentarios){
+                intercambiaDatos(ptr1, ptr1->siguiente);
+                intercambia = 1;
+            }
+            ptr1 = ptr1->siguiente;
+        }
+        ptr2 = ptr1;
+    }  
+    while (intercambia);
+    
 }
 
 void ordenarCompartidos(Publicacion** cabeza){
+    if(*cabeza == NULL || (*cabeza)->siguiente == NULL){
+        printf("Error: No se puede ordenar datos insuficientes");
+        return;
+    }
+    //Intercambia actua como un bool 
+    int intercambia = 1;
+    Publicacion* ptr1;
+    Publicacion* ptr2 = NULL;
+    do
+    {   
+        intercambia = 0;
+        ptr1 = *cabeza;
+        while (ptr1->siguiente != ptr2)
+        {
+            if (ptr1->compartidos < ptr1->siguiente->compartidos){
+                intercambiaDatos(ptr1, ptr1->siguiente);
+                intercambia = 1;
+            }
+            ptr1 = ptr1->siguiente;
+        }
+        ptr2 = ptr1;
+    }  
+    while (intercambia);
 
 }
 
