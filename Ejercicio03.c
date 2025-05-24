@@ -40,10 +40,13 @@ Publicacion* crearpublicacion(int ID, char* usuario, char* titulo, char** imagen
         exit(EXIT_FAILURE);
     }
     nueva -> ID = ID;
-    nueva -> usuario = usuario;
-    nueva -> titulo = titulo;
-    nueva -> imagenes = * imagenes;
+    strcpy(nueva -> usuario, usuario);
+    strcpy(nueva -> titulo, titulo);
     nueva -> num_imagenes = num_imagenes;
+    nueva -> imagenes = malloc(num_imagenes * sizeof(char*));
+    for (int i = 0; i < num_imagenes; i++) {
+        strcpy(nueva -> imagenes[i], imagenes[i]);
+    }
     nueva -> me_gusta = me_gusta;
     nueva -> comentarios = comentarios;
     nueva -> compartidos = compartidos;
@@ -74,7 +77,7 @@ void insertarFinal(Publicacion** cabeza, Publicacion* nueva){
 // Eliminamos el inicio de la lista
 void eliminarInicio(Publicacion** cabeza){
     if (* cabeza == NULL) {
-        printf("Error: No hay publicaciones en la lista\n");
+        printf("Error: No hay publicaciones en lista\n");
         return;
     }
     Publicacion * actual = * cabeza;
@@ -85,7 +88,7 @@ void eliminarInicio(Publicacion** cabeza){
 // Eliminamos el final de la lista
 void eliminarFinal(Publicacion** cabeza){
     if (* cabeza == NULL) {
-        printf("Error: No hay publicaciones en la lista\n");
+        printf("Error: No hay publicaciones en lista\n");
         return;
     }
     if ((* cabeza) -> siguiente == NULL) {
@@ -120,7 +123,7 @@ void insertarPorID(Publicacion** cabeza, Publicacion* nueva){
 
 void eliminarPorID(Publicacion**cabeza, int ID){
     if (* cabeza == NULL) {
-        printf("Error: No hay publicaciones en la lista\n");
+        printf("Error: No hay publicaciones en lista\n");
         return;
     }
     Publicacion* actual = *cabeza;
@@ -150,15 +153,10 @@ void imprimirPublicacion(Publicacion* actual){
 }
 
 void imprimirLista(Publicacion* cabeza){
-    if (cabeza == NULL) {
-        printf("Error: No hay publicaciones en la lista\n");
-        return;
+    while(cabeza -> siguiente != NULL){
+        printf(cabeza);
     }
-    Publicacion* actual = cabeza;
-    while(actual -> siguiente != NULL){
-        imprimirPublicacion(actual);
-        actual = actual -> siguiente;
-    }
+    
 }
 
 void intercambiaDatos(Publicacion* a, Publicacion* b ){
@@ -237,10 +235,12 @@ Publicacion * cargarArchivo(const char* nombreArchivo){
     fclose(archivo);
 }
 
-// Liberamos la publicacion correspondiente asegurandonos que el arreglo de strings de las imagenes sea liberado igualmente
+// Liberamos la publicacion correspondiente asegurandonos que el arreglo de strings sean liberados igualmente
 void liberarPublicacion(Publicacion* actual){
+    free(actual->usuario);
+    free(actual->titulo);
     for (int i = 0; i < actual->num_imagenes; i++) {
-        free(actual->imagenes);
+        free(actual->imagenes[i]);
     }
     free(actual->imagenes);
     free(actual);
