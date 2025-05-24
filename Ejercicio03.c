@@ -417,18 +417,18 @@ Publicacion* cargarArchivo(const char* nombreArchivo) {
 }
 
 void menu(){
-    printf("\n--- MENU ---\n");
-    printf("1. Insertar publicacion al inicio\n");  
-    printf("2. Insertar publicacion al final\n");
-    printf("3. Insertar publicacion ordenada por ID\n");
-    printf("4. Eliminar primera publicacion\n");
-    printf("5. Eliminar ultima publicacion\n");
-    printf("6. Eliminar publicaciin por ID\n");
-    printf("7. Mostrar publicaciones\n");
-    printf("8. Ordenar por Me Gusta\n");
-    printf("9. Ordenar por Comentarios\n");
-    printf("10. Ordenar por Compartido\n");
-    printf("0. Salir\n");
+    printf("\n----- MENU -----\n");
+    printf("1). Insertar publicacion al inicio\n");  
+    printf("2). Insertar publicacion al final\n");
+    printf("3). Insertar publicacion ordenada por ID\n");
+    printf("4). Eliminar primera publicacion\n");
+    printf("5). Eliminar ultima publicacion\n");
+    printf("6). Eliminar publicaciin por ID\n");
+    printf("7). Mostrar publicaciones\n");
+    printf("8). Ordenar por Me Gusta\n");
+    printf("9). Ordenar por Comentarios\n");
+    printf("10). Ordenar por Compartido\n");
+    printf("0). Salir\n");
     printf("Seleccione una opcion: ");
 }
 
