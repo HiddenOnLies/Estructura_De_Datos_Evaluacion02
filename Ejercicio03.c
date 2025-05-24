@@ -24,12 +24,13 @@ void insertarPorID(Publicacion** cabeza, Publicacion* nueva);
 void eliminarPorID(Publicacion**cabeza, int ID);
 void imprimirPublicacion(Publicacion* actual);
 void imprimirLista(Publicacion* cabeza);
+void intercambiaDatos(Publicacion* a, Publicacion* b);
 void ordenarLikes(Publicacion**cabeza);
 void ordenarComentario(Publicacion** cabeza);
 void ordenarCompartidos(Publicacion** cabeza);
-Publicacion * cargarArchivo(const char* nombreArchivo);
 void liberarPublicacion(Publicacion* actual);
 void liberarLista(Publicacion* cabeza);
+Publicacion * cargarArchivo(const char* nombreArchivo);
 void menu();
 
 // Creamos una nueva publicacion
