@@ -153,6 +153,10 @@ void imprimirPublicacion(Publicacion* actual){
 }
 
 void imprimirLista(Publicacion* cabeza){
+    while(cabeza -> siguiente != NULL){
+        printf("");
+    }
+
     
 }
 
