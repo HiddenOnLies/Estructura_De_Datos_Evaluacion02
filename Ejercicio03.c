@@ -123,7 +123,13 @@ void eliminarPorID(Publicacion**cabeza, int ID){
 }
 
 void imprimirPublicacion(Publicacion* actual){
-
+    printf("ID: ", actual -> ID);
+    printf("Usuario ", actual -> usuario);
+    printf("Titulo: ", actual -> titulo );
+    printf("Imagenes: ", actual -> imagenes);
+    printf("Like: ", actual -> me_gusta);
+    printf("Comentarios: ", actual -> comentarios);
+    printf("Compartidos: ", actual -> compartidos);
 }
 
 void imprimirLista(Publicacion* cabeza){
