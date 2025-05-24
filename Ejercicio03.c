@@ -33,23 +33,64 @@ void liberarLista(Publicacion* cabeza);
 void menu();
 
 // Creamos una nueva publicacion
-Publicacion* crearpublicacion(int ID, char* usuario, char* titulo, char** imagenes, int num_imagenes, int me_gusta, int comentarios, int compartidos){
-    Publicacion * nueva = (Publicacion *)malloc(sizeof(Publicacion));
+Publicacion* crearpublicacion(int ID, char* usuario, char* titulo, char** imagenes, int num_imagenes, int me_gusta, int comentarios, int compartidos) {
+    Publicacion* nueva = (Publicacion*)malloc(sizeof(Publicacion));
     if (nueva == NULL) {
         printf("Error: Memoria insuficiente\n");
-        exit(EXIT_FAILURE);
+        return NULL;
     }
-    nueva -> ID = ID;
-    strcpy(nueva -> usuario, usuario);
-    strcpy(nueva -> titulo, titulo);
-    nueva -> num_imagenes = num_imagenes;
-    nueva -> imagenes = malloc(num_imagenes * sizeof(char*));
+
+    nueva->ID = ID;
+    
+    // Asignar memoria para usuario y copiar
+    nueva->usuario = (char*)malloc(strlen(usuario) + 1);
+    if (nueva->usuario == NULL) {
+        free(nueva);
+        return NULL;
+    }
+    strcpy(nueva->usuario, usuario);
+    
+    // Asignar memoria para título y copiar
+    nueva->titulo = (char*)malloc(strlen(titulo) + 1);
+    if (nueva->titulo == NULL) {
+        free(nueva->usuario);
+        free(nueva);
+        return NULL;
+    }
+    strcpy(nueva->titulo, titulo);
+    
+    // Asignar memoria para imágenes
+    nueva->num_imagenes = num_imagenes;
+    nueva->imagenes = (char**)malloc(num_imagenes * sizeof(char*));
+    if (nueva->imagenes == NULL) {
+        free(nueva->usuario);
+        free(nueva->titulo);
+        free(nueva);
+        return NULL;
+    }
+    
+    // Copiar cada imagen
     for (int i = 0; i < num_imagenes; i++) {
-        strcpy(nueva -> imagenes[i], imagenes[i]);
+        nueva->imagenes[i] = (char*)malloc(strlen(imagenes[i]) + 1);
+        if (nueva->imagenes[i] == NULL) {
+            // Liberar memoria ya asignada
+            for (int j = 0; j < i; j++) {
+                free(nueva->imagenes[j]);
+            }
+            free(nueva->imagenes);
+            free(nueva->usuario);
+            free(nueva->titulo);
+            free(nueva);
+            return NULL;
+        }
+        strcpy(nueva->imagenes[i], imagenes[i]);
     }
-    nueva -> me_gusta = me_gusta;
-    nueva -> comentarios = comentarios;
-    nueva -> compartidos = compartidos;
+    
+    nueva->me_gusta = me_gusta;
+    nueva->comentarios = comentarios;
+    nueva->compartidos = compartidos;
+    nueva->siguiente = NULL;
+    
     return nueva;
 }
 
@@ -378,7 +419,7 @@ void menu(){
     printf("2. Insertar publicacion al final\n");
     printf("3. Insertar publicacion ordenada por ID\n");
     printf("4. Eliminar primera publicacion\n");
-    printf("5. Eliminar última publicacion\n");
+    printf("5. Eliminar ultima publicacion\n");
     printf("6. Eliminar publicaciin por ID\n");
     printf("7. Mostrar publicaciones\n");
     printf("8. Ordenar por Me Gusta\n");
