@@ -209,16 +209,15 @@ void ordenarLikes(Publicacion** cabeza){
         ptr1 = *cabeza;
         while (ptr1->siguiente != ptr2)
         {
-            if (ptr1->me_gusta < ptr1->siguiente->me_gusta)
-            {
-                //Intercambiar datos
-                Publicacion* temp = *ptr1;
-                *ptr1 = *(ptr1->siguiente);
-                *(ptr1->siguiente) = temp;
+            if (ptr1->me_gusta < ptr1->siguiente->me_gusta){
+                intercambiaDatos(ptr1, ptr1->siguiente);
+                intercambia = 1;
             }
+            ptr1 = ptr1->siguiente;
         }
+        ptr2 = ptr1;
     }  
-    while (condition);
+    while (intercambia);
     
 }
 
