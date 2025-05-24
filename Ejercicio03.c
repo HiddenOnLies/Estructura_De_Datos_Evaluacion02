@@ -417,7 +417,7 @@ int main() {
                 printf("Ingrese titulo: ");
                 scanf(" %[^\n]", titulo);
                 
-                printf("Número de imagenes: ");
+                printf("Numero de imagenes: ");
                 scanf("%d", &num_imagenes);
                 
                 imagenes = (char**)malloc(num_imagenes * sizeof(char*));
@@ -457,7 +457,7 @@ int main() {
                 printf("Ingrese titulo: ");
                 scanf(" %[^\n]", titulo);
                 
-                printf("Número de imagenes: ");
+                printf("Numero de imagenes: ");
                 scanf("%d", &num_imagenes);
                 
                 imagenes = (char**)malloc(num_imagenes * sizeof(char*));
@@ -497,7 +497,7 @@ int main() {
                 printf("Ingrese titulo: ");
                 scanf(" %[^\n]", titulo);
                 
-                printf("Número de imagenes: ");
+                printf("Numero de imagenes: ");
                 scanf("%d", &num_imagenes);
                 
                 imagenes = (char**)malloc(num_imagenes * sizeof(char*));
