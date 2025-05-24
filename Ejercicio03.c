@@ -6,7 +6,7 @@ typedef struct Publicacion {
     int ID;
     char usuario;
     char titulo;
-    char imagenes;
+    char** imagenes;
     int num_imagenes;
     int me_gusta;
     int comentarios;
@@ -100,7 +100,20 @@ void eliminarFinal(Publicacion** cabeza){
 }
 
 void insertarPorID(Publicacion** cabeza, Publicacion* nueva){
-
+    //Si la cabeza esta vacia o la publicacion nueva es menor a la cabeza insertamos en el inicio
+    if(*cabeza == NULL || nueva-> ID < (*cabeza)->ID){
+        insertarInicio(cabeza, nueva);
+        return;
+    }
+    //En caso de que la nueva publicacion sea mayor que la cabeza 
+    else{
+        Publicacion* actual = *cabeza;
+        while(actual->siguiente != NULL && actual->siguiente->ID < nueva->ID){
+            actual = actual->siguiente;
+        }
+        nueva->siguiente = actual->siguiente;
+        actual->siguiente = nueva;
+    }
 }
 
 void eliminarPorID(Publicacion**cabeza, int ID){
