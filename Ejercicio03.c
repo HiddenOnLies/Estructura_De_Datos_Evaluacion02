@@ -203,7 +203,7 @@ void imprimirLista(Publicacion* cabeza) {
     int i = 1;
     
     while (actual != NULL) {
-        printf("\n--- Publicacion %d ---", i++);
+        printf("\n--- Publicacion %d ---\n", i++);
         imprimirPublicacion(actual);
         actual = actual->siguiente;
     }
