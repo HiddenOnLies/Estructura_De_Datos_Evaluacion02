@@ -332,36 +332,36 @@ void menu(){
 int main(){
     int opcion;
     do{
-        switch (opcion)
-        {
-        case 1:
-            printf("Ingrese ID");
-            break;
-        case 2:
-            printf("");
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 7:
-            break;
-        case 8:
-            break;
-        case 9:
-            break;
-        case 10:
-            break;
-        case 0:
-            printf("Saliendo..\n");
-            break;
-        default:
-            printf("Opcion no valida\n");
-        }
-    } while(opcion != 0);
+        menu();
+        scanf("&d", &opcion);
+
+        switch (opcion){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+            case 0:
+                printf("Saliendo..\n");
+                break;
+            default:
+                printf("Opcion no valida\n");
+            }
+        } while(opcion != 0);
     return 0;
 }
