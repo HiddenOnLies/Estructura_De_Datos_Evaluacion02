@@ -374,18 +374,18 @@ Publicacion* cargarArchivo(const char* nombreArchivo) {
 
 void menu(){
     printf("\n--- MENU ---\n");
-    printf("1. Insertar publicación al inicio\n");  
-    printf("2. Insertar publicación al final\n");
-    printf("3. Insertar publicación ordenada por ID\n");
-    printf("4. Eliminar primera publicación\n");
-    printf("5. Eliminar última publicación\n");
-    printf("6. Eliminar publicación por ID\n");
+    printf("1. Insertar publicacion al inicio\n");  
+    printf("2. Insertar publicacion al final\n");
+    printf("3. Insertar publicacion ordenada por ID\n");
+    printf("4. Eliminar primera publicacion\n");
+    printf("5. Eliminar última publicacion\n");
+    printf("6. Eliminar publicaciin por ID\n");
     printf("7. Mostrar publicaciones\n");
     printf("8. Ordenar por Me Gusta\n");
     printf("9. Ordenar por Comentarios\n");
     printf("10. Ordenar por Compartido\n");
     printf("0. Salir\n");
-    printf("Seleccione una opción: ");
+    printf("Seleccione una opcion: ");
 }
 
 int main() {
@@ -414,10 +414,10 @@ int main() {
                 printf("Ingrese usuario: ");
                 scanf(" %[^\n]", usuario);
                 
-                printf("Ingrese título: ");
+                printf("Ingrese titulo: ");
                 scanf(" %[^\n]", titulo);
                 
-                printf("Número de imágenes: ");
+                printf("Número de imagenes: ");
                 scanf("%d", &num_imagenes);
                 
                 imagenes = (char**)malloc(num_imagenes * sizeof(char*));
@@ -454,10 +454,10 @@ int main() {
                 printf("Ingrese usuario: ");
                 scanf(" %[^\n]", usuario);
                 
-                printf("Ingrese título: ");
+                printf("Ingrese titulo: ");
                 scanf(" %[^\n]", titulo);
                 
-                printf("Número de imágenes: ");
+                printf("Número de imagenes: ");
                 scanf("%d", &num_imagenes);
                 
                 imagenes = (char**)malloc(num_imagenes * sizeof(char*));
@@ -494,10 +494,10 @@ int main() {
                 printf("Ingrese usuario: ");
                 scanf(" %[^\n]", usuario);
                 
-                printf("Ingrese título: ");
+                printf("Ingrese titulo: ");
                 scanf(" %[^\n]", titulo);
                 
-                printf("Número de imágenes: ");
+                printf("Número de imagenes: ");
                 scanf("%d", &num_imagenes);
                 
                 imagenes = (char**)malloc(num_imagenes * sizeof(char*));
@@ -565,7 +565,7 @@ int main() {
                 break;
                 
             default:
-                printf("Opción no válida\n");
+                printf("Opción no valida\n");
         }
     } while(opcion != 0);
     
