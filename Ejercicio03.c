@@ -4,8 +4,8 @@
 
 typedef struct Publicacion {
     int ID;
-    char usuario;
-    char titulo;
+    char* usuario;
+    char* titulo;
     char** imagenes;
     int num_imagenes;
     int me_gusta;
