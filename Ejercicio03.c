@@ -86,11 +86,17 @@ void eliminarFinal(Publicacion** cabeza){
         printf("Error: No hay publicaciones en lista\n");
         return;
     }
+    if ((* cabeza) -> siguiente == NULL) {
+        liberarPublicacion(* cabeza);
+        * cabeza = NULL;
+        return;
+    }
     Publicacion * actual = * cabeza;
-    while (actual -> siguiente != NULL) {
+    while (actual -> siguiente -> siguiente != NULL) {
         actual = actual -> siguiente;
     }
-    liberarPublicacion(actual);
+    liberarPublicacion(actual -> siguiente);
+    actual -> siguiente = NULL;
 }
 
 void insertarPorID(Publicacion** cabeza, Publicacion* nueva){
