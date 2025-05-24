@@ -169,6 +169,8 @@ Publicacion * cargarArchivo(const char* nombreArchivo){
         printf("Error: No se pudo abrir el archivo");
         exit(EXIT_FAILURE);
     }
+    
+    fclose(archivo);
 }
 
 // Liberamos la publicacion correspondiente asegurandonos que el arreglo de strings de las imagenes sea liberado igualmente
