@@ -162,6 +162,7 @@ void imprimirLista(Publicacion* cabeza){
         actual = actual -> siguiente;
     }
     imprimirPublicacion(actual);
+    }
 }
 
 void intercambiaDatos(Publicacion* a, Publicacion* b ){
