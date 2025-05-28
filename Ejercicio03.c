@@ -25,6 +25,7 @@ void eliminarPorID(Publicacion**cabeza, int ID);
 void imprimirPublicacion(Publicacion* actual);
 void imprimirLista(Publicacion* cabeza);
 void intercambiaDatos(Publicacion* a, Publicacion* b);
+void ordenarPorID(Publicacion ** cabeza);
 void ordenarLikes(Publicacion**cabeza);
 void ordenarComentario(Publicacion** cabeza);
 void ordenarCompartidos(Publicacion** cabeza);
@@ -147,6 +148,7 @@ void eliminarFinal(Publicacion** cabeza){
 }
 
 void insertarPorID(Publicacion** cabeza, Publicacion* nueva){
+    ordenarPorID(cabeza);
     //Si la cabeza esta vacia o la publicacion nueva es menor a la cabeza insertamos en el inicio
     if(*cabeza == NULL || nueva-> ID < (*cabeza)->ID){
         insertarInicio(cabeza, nueva);
@@ -250,6 +252,32 @@ void intercambiaDatos(Publicacion* a, Publicacion* b ){
     b->comentarios = temp.comentarios;
     b->compartidos = temp.compartidos;
 
+}
+
+void ordenarPorID(Publicacion** cabeza) {
+    // Verificacion de que la lista no este vacia
+    if(*cabeza == NULL || (*cabeza)->siguiente == NULL) {
+        printf("Error: No se puede ordenar, datos insuficientes\n");
+        return;
+    }
+    
+    int intercambia = 1;
+    Publicacion* ptr1;
+    Publicacion* ptr2 = NULL;
+    
+    do {
+        intercambia = 0;
+        ptr1 = *cabeza;
+        
+        while (ptr1->siguiente != ptr2) {
+            if (ptr1->ID > ptr1->siguiente->ID) {
+                intercambiaDatos(ptr1, ptr1->siguiente);
+                intercambia = 1;
+            }
+            ptr1 = ptr1->siguiente;
+        }
+        ptr2 = ptr1;
+    } while (intercambia);
 }
 
 void ordenarLikes(Publicacion** cabeza){
@@ -425,6 +453,8 @@ Publicacion* cargarArchivo(const char* nombreArchivo) {
             free(imagenes[i]);
         }
     }
+
+    ordenarPorID(&lista);
     
     fclose(archivo);
     return lista;
@@ -442,6 +472,7 @@ void menu(){
     printf("8). Ordenar por Me Gusta\n");
     printf("9). Ordenar por Comentarios\n");
     printf("10). Ordenar por Compartido\n");
+    printf("11). Ordenar por ID\n");
     printf("0). Salir\n");
     printf("Seleccione una opcion: ");
 }
@@ -546,6 +577,7 @@ int main() {
                 break;
             }
             case 3: { // Insertar ordenado por ID
+            
                 printf("Ingrese ID: ");
                 scanf("%d", &ID);
                 
@@ -616,6 +648,11 @@ int main() {
             case 10: // Ordenar por compartidos
                 ordenarCompartidos(&lista);
                 printf("Publicaciones ordenadas por compartidos\n");
+                break;
+
+            case 11: // Ordenar por ID
+                ordenarPorID(&lista);
+                printf("Publicaciones ordenadas por ID\n");
                 break;
                 
             case 0: // Salir
