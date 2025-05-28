@@ -454,7 +454,6 @@ Publicacion* cargarArchivo(const char* nombreArchivo) {
         }
     }
 
-    ordenarPorID(&lista);
     
     fclose(archivo);
     return lista;
